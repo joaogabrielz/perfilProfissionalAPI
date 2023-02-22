@@ -23,16 +23,24 @@ module.exports = {
 
             return {
               token: token,
+              nome: perfilComEmailEncontrado.nome,
               email: perfilComEmailEncontrado.usuario.email,
               perfil: perfilComEmailEncontrado._id,
             };
           }
+          else{
+            throw {
+              message: "Erro ao efetuar Login, Credenciais inválidas",
+              status: 400,
+            };
+          }
         }
-
+        
         throw {
-          message: "Erro ao efetuar Login, Credenciais Inválidas!",
-          status: 200,
+          message: "Erro ao efetuar Login, Usuario Não Encontrado",
+          status: 404,
         };
+
       } else {
         throw {
           message: "Erro ao efetuar Login, Credenciais Inválidas!",
