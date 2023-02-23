@@ -39,6 +39,10 @@ module.exports = {
 
   editarPerfil: async (id, perfil) => {
     try {
+      const { usuario } = await perfilModel.findOne({_id: id})
+      .select("usuario.senha")
+      .exec()
+      perfil.usuario.senha = usuario.senha
       return await perfilModel.updateOne({ _id: id }, perfil);
     } 
     catch (error) {
@@ -53,7 +57,7 @@ module.exports = {
       let destinatario  = await perfilModel.findOne({ _id: info.destinatario });
 
       if(!info.remetente || !info.destinatario){
-        throw { message: `Erro ao definir Conexao, Dados incompletos`, status: 400 };
+        throw { message: `Perfil não encontrado`, status: 404 };
       }
       else if(info.remetente == info.destinatario){
         throw { message: `Erro ao definir conexao, Um Perfil não pode conectar-se a si mesmo`, status: 400 };
@@ -62,8 +66,9 @@ module.exports = {
         remetente.conexoes.push(destinatario);
         destinatario.conexoes.push(remetente);
 
-        await perfilModel.updateOne({ _id: remetente._id }, remetente);
-        await perfilModel.updateOne({ _id: destinatario._id }, destinatario);
+
+        await perfilModel.updateOne({ _id: remetente._id }, { $set: { conexoes: remetente.conexoes }})
+        await perfilModel.updateOne({ _id: destinatario._id }, { $set: { conexoes: destinatario.conexoes }})
       }
 
       return { message: "Conexão estabelecida com sucesso!", status: 200}

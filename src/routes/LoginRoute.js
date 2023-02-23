@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     res.json(response);
   } catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
