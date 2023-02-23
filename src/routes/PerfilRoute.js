@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -57,7 +57,7 @@ router.put('/:id', verificarCredenciais, async (req, res) => {
     res.json(response);
   }  catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -72,7 +72,7 @@ router.post('/conexao',verificarCredenciais, async (req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }

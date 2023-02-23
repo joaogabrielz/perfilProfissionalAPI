@@ -12,7 +12,7 @@ router.get('/:id', verificarCredenciais, async (req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -26,7 +26,7 @@ router.get('/perfil/:id', verificarCredenciais, async(req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -41,7 +41,7 @@ router.post('/', verificarCredenciais, async (req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
@@ -56,7 +56,7 @@ router.put('/lida/:id', verificarCredenciais, async (req, res) => {
   } 
   catch (error) {
     console.log(JSON.stringify(error))
-    res.status(error.status).json({
+    res.status(error.status ?? 500).json({
       message: error.message,
     });
   }
